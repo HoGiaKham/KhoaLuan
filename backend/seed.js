@@ -19,7 +19,7 @@ const seedSubjects = async () => {
       useUnifiedTopology: true,
     });
 
-    await Subject.deleteMany(); // Xóa dữ liệu cũ
+    await Subject.deleteMany();
     await Subject.insertMany(subjects);
 
     console.log("✅ Subjects inserted thành công!");
