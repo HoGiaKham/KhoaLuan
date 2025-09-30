@@ -1,0 +1,406 @@
+.practice-exam-detail-page {
+  padding: 25px;
+  position: relative;
+  margin-left: 270px; /* chừa chỗ cho sidebar cố định */
+  min-height: 100vh;
+  background: #f5f7fb;
+  overflow-y: auto;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .practice-exam-detail-page {
+    margin-left: 0;
+    padding: 15px;
+  }
+}
+
+/* ===== Loading & Error ===== */
+.practice-exam-detail-page .loading,
+.practice-exam-detail-page .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  color: #666;
+}
+
+.practice-exam-detail-page .error {
+  color: #dc3545;
+}
+
+/* ===== Header ===== */
+.practice-exam-detail-page .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #eee;
+}
+
+.practice-exam-detail-page .header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.practice-exam-detail-page .back-btn {
+  background: #6c757d;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.practice-exam-detail-page .back-btn:hover {
+  background: #5a6268;
+}
+
+.practice-exam-detail-page .exam-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+  border-left: 4px solid #007bff;
+  padding-left: 10px;
+}
+
+.practice-exam-detail-page .add-question-btn {
+  background: #28a745;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.practice-exam-detail-page .add-question-btn:hover {
+  background: #218838;
+}
+
+/* ===== Exam Info ===== */
+.practice-exam-detail-page .exam-info {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.practice-exam-detail-page .info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.practice-exam-detail-page .info-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.practice-exam-detail-page .info-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ===== Questions Section ===== */
+.practice-exam-detail-page .questions-section h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  border-left: 4px solid #28a745;
+  padding-left: 10px;
+}
+
+.practice-exam-detail-page .no-questions {
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+  padding: 40px;
+  background: white;
+  border-radius: 8px;
+  border: 2px dashed #ddd;
+}
+
+.practice-exam-detail-page .questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== Question Item ===== */
+.practice-exam-detail-page .question-item {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border-left: 4px solid #007bff;
+}
+
+.practice-exam-detail-page .question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.practice-exam-detail-page .question-number {
+  font-weight: 600;
+  color: #007bff;
+  font-size: 16px;
+}
+
+.practice-exam-detail-page .delete-btn {
+  background: #dc3545;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.practice-exam-detail-page .delete-btn:hover {
+  background: #c82333;
+}
+
+.practice-exam-detail-page .question-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+/* ===== Options ===== */
+.practice-exam-detail-page .options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.practice-exam-detail-page .option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+}
+
+.practice-exam-detail-page .option.correct {
+  background: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.practice-exam-detail-page .option-label {
+  font-weight: 600;
+  min-width: 20px;
+}
+
+.practice-exam-detail-page .option-text {
+  flex: 1;
+}
+
+.practice-exam-detail-page .explanation {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  padding: 12px;
+  border-radius: 6px;
+  color: #856404;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ===== Modal ===== */
+.practice-exam-detail-page .modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.practice-exam-detail-page .modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.practice-exam-detail-page .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.practice-exam-detail-page .modal-header h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.practice-exam-detail-page .modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.practice-exam-detail-page .modal-close-btn:hover {
+  color: #000;
+  background: #f8f9fa;
+  border-radius: 50%;
+}
+
+/* ===== Form ===== */
+.practice-exam-detail-page .form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.practice-exam-detail-page .form-group label {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.practice-exam-detail-page input,
+.practice-exam-detail-page textarea,
+.practice-exam-detail-page select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background: #fff;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.practice-exam-detail-page input:focus,
+.practice-exam-detail-page textarea:focus,
+.practice-exam-detail-page select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.practice-exam-detail-page textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ===== Option Input ===== */
+.practice-exam-detail-page .option-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 8px 0;
+}
+
+.practice-exam-detail-page .option-letter {
+  font-weight: 600;
+  min-width: 20px;
+  color: #666;
+}
+
+.practice-exam-detail-page .option-input input[type="text"] {
+  flex: 1;
+  margin: 0;
+}
+
+.practice-exam-detail-page .option-input input[type="radio"] {
+  margin: 0 5px;
+  width: auto;
+}
+
+.practice-exam-detail-page .option-input label {
+  font-size: 14px;
+  margin: 0;
+  cursor: pointer;
+  color: #28a745;
+  font-weight: 500;
+}
+
+/* ===== Modal Actions ===== */
+.practice-exam-detail-page .modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.practice-exam-detail-page .confirm-btn {
+  background: #28a745;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.practice-exam-detail-page .confirm-btn:hover {
+  background: #218838;
+}
+
+.practice-exam-detail-page .cancel-btn {
+  background: #6c757d;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.practice-exam-detail-page .cancel-btn:hover {
+  background: #5a6268;
+}

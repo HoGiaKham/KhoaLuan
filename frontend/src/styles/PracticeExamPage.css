@@ -1,0 +1,195 @@
+.practice-exam-page {
+  padding: 25px;
+  position: relative;
+  margin-left: 270px; /* chừa chỗ cho sidebar cố định */
+  min-height: 100vh;
+  background: #f5f7fb;
+  overflow-y: auto;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+.practice-exam-page .form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+.practice-exam-page input,
+.practice-exam-page select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+.practice-exam-page input:focus,
+.practice-exam-page select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+.practice-exam-page button {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.1s;
+}
+
+.practice-exam-page button:hover {
+  background: #0056b3;
+}
+
+.practice-exam-page button:active {
+  transform: scale(0.97);
+}
+@media (max-width: 768px) {
+  .practice-exam-page {
+    margin-left: 0;
+    padding: 15px;
+  }
+}
+.practice-exam-page label {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+.practice-exam-page h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  border-left: 4px solid #007bff;
+  padding-left: 10px;
+}
+/* ===== Header ===== */
+.practice-exam-page .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.practice-exam-page .title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.practice-exam-page .action-btn {
+  background: #007bff;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.practice-exam-page .action-btn:hover {
+  background: #0056b3;
+}
+
+/* ===== Danh sách exam ===== */
+.practice-exam-page ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.practice-exam-page li {
+  background: white;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.practice-exam-page li:hover {
+  transform: translateY(-2px);
+}
+
+.practice-exam-page .exam-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.practice-exam-page .exam-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #222;
+}
+
+.practice-exam-page .exam-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ===== Buttons trong item ===== */
+.practice-exam-page .exam-btn {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #333;
+  transition: all 0.2s;
+}
+.practice-exam-page .exam-btn:hover {
+  background: #e9ecef;
+}
+
+/* ===== Modal giống QuestionPage ===== */
+.practice-exam-page .modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.practice-exam-page .modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.practice-exam-page .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.practice-exam-page .modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #666;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.practice-exam-page .modal-close-btn:hover {
+  color: #000;
+}
