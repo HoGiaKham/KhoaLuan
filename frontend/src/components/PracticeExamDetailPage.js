@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import Swal from "sweetalert2";
 import "../styles/PracticeExamDetailPage.css";
 
-// Config API
 const BASE_URL = "http://localhost:5000/api";
 
 function PracticeExamDetailPage({ examId, setPage }) {
@@ -10,25 +8,23 @@ function PracticeExamDetailPage({ examId, setPage }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAddQuestionModalOpen, setIsAddQuestionModalOpen] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
+  const [showShuffleConfirm, setShowShuffleConfirm] = useState(false);
   
-  // States cho menu chọn
   const [showAddMenu, setShowAddMenu] = useState(false);
   const [addMenuPosition, setAddMenuPosition] = useState({ x: 0, y: 0 });
   const addMenuRef = useRef(null);
 
-  // States cho form thêm câu hỏi
   const [title, setTitle] = useState("");
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctAnswer, setCorrectAnswer] = useState(0);
   const [difficulty, setDifficulty] = useState("Trung bình");
 
-  // States cho ngân hàng câu hỏi
   const [showQuestionBankModal, setShowQuestionBankModal] = useState(false);
   const [bankQuestions, setBankQuestions] = useState([]);
   const [selectedBankQuestions, setSelectedBankQuestions] = useState([]);
-  const [expandedCategories, setExpandedCategories] = useState([]); // Track expanded categories
+  const [expandedCategories, setExpandedCategories] = useState([]);
 
-  // fetch questions của exam (chỉ những câu đã chọn)
   const fetchQuestions = async () => {
     try {
       const res = await fetch(`${BASE_URL}/practice-exams/${examId}/questions`);
@@ -41,7 +37,6 @@ function PracticeExamDetailPage({ examId, setPage }) {
     }
   };
 
-  // fetch exam
   useEffect(() => {
     const fetchExam = async () => {
       try {
@@ -61,7 +56,6 @@ function PracticeExamDetailPage({ examId, setPage }) {
     fetchQuestions();
   }, [examId]);
 
-  // Đóng menu khi click bên ngoài
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (addMenuRef.current && !addMenuRef.current.contains(event.target)) {
@@ -72,28 +66,54 @@ function PracticeExamDetailPage({ examId, setPage }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showAddMenu]);
 
-  // Fetch ngân hàng câu hỏi - Lấy TẤT CẢ câu hỏi của các categories trong exam
   const fetchBankQuestions = async () => {
     if (!examData || !examData.categories || examData.categories.length === 0) return;
     
     try {
-      // Gọi API để lấy tất cả câu hỏi của exam (bao gồm cả đã chọn và chưa chọn)
       const res = await fetch(`${BASE_URL}/practice-exams/${examId}/all-questions`);
       if (!res.ok) throw new Error("Không thể load ngân hàng câu hỏi");
       const data = await res.json();
       
-      // Lọc ra những câu hỏi CHƯA được thêm vào exam
       const currentQuestionIds = questions.map(q => q._id);
       const availableQuestions = data.filter(q => !currentQuestionIds.includes(q._id));
       
       setBankQuestions(availableQuestions);
     } catch (err) {
       console.error("Lỗi khi load ngân hàng câu hỏi:", err);
-      Swal.fire("Lỗi", "Không thể tải ngân hàng câu hỏi", "error");
+      alert("Lỗi: Không thể tải ngân hàng câu hỏi");
     }
   };
 
-  // Xử lý click nút thêm câu hỏi
+  const handleShuffleClick = () => {
+    if (questions.length === 0) {
+      alert("Không có câu hỏi để xáo trộn");
+      return;
+    }
+    setShowShuffleConfirm(true);
+  };
+
+  const handleConfirmShuffle = async () => {
+    setShowShuffleConfirm(false);
+    setIsShuffling(true);
+    
+    try {
+      const res = await fetch(`${BASE_URL}/practice-exams/${examId}/shuffle`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!res.ok) throw new Error("Không thể xáo trộn câu hỏi");
+
+      await fetchQuestions();
+      alert("Thành công! Đã xáo trộn câu hỏi và đáp án");
+    } catch (error) {
+      alert("Lỗi: Không thể xáo trộn câu hỏi");
+      console.error(error);
+    } finally {
+      setIsShuffling(false);
+    }
+  };
+
   const handleAddMenuClick = (e) => {
     e.stopPropagation();
     setShowAddMenu(true);
@@ -106,20 +126,17 @@ function PracticeExamDetailPage({ examId, setPage }) {
     setAddMenuPosition({ x, y });
   };
 
-  // Mở form thêm thủ công
   const handleManualAdd = () => {
     setShowAddMenu(false);
     setIsAddQuestionModalOpen(true);
   };
 
-  // Mở modal ngân hàng câu hỏi
   const handleBankAdd = async () => {
     setShowAddMenu(false);
     await fetchBankQuestions();
     setShowQuestionBankModal(true);
   };
 
-  // Toggle expand category
   const toggleCategoryExpand = (categoryId) => {
     setExpandedCategories(prev =>
       prev.includes(categoryId)
@@ -128,7 +145,6 @@ function PracticeExamDetailPage({ examId, setPage }) {
     );
   };
 
-  // Toggle chọn câu hỏi từ ngân hàng
   const toggleSelectBankQuestion = (questionId) => {
     setSelectedBankQuestions(prev => 
       prev.includes(questionId) 
@@ -137,10 +153,9 @@ function PracticeExamDetailPage({ examId, setPage }) {
     );
   };
 
-  // Thêm câu hỏi từ ngân hàng
   const handleAddFromBank = async () => {
     if (selectedBankQuestions.length === 0) {
-      Swal.fire("Thông báo", "Vui lòng chọn ít nhất một câu hỏi", "warning");
+      alert("Vui lòng chọn ít nhất một câu hỏi");
       return;
     }
 
@@ -157,17 +172,16 @@ function PracticeExamDetailPage({ examId, setPage }) {
       setShowQuestionBankModal(false);
       setSelectedBankQuestions([]);
       
-      Swal.fire("Thành công", `Đã thêm ${selectedBankQuestions.length} câu hỏi!`, "success");
+      alert(`Thành công! Đã thêm ${selectedBankQuestions.length} câu hỏi`);
     } catch (error) {
-      Swal.fire("Lỗi", "Không thể thêm câu hỏi từ ngân hàng", "error");
+      alert("Lỗi: Không thể thêm câu hỏi từ ngân hàng");
       console.error(error);
     }
   };
 
-  // thêm câu hỏi thủ công (tạo mới và thêm vào exam)
   const handleAddQuestion = async () => {
     if (!title.trim() || options.some((opt) => !opt.trim())) {
-      Swal.fire("Thiếu thông tin", "Vui lòng nhập đầy đủ câu hỏi và các đáp án", "warning");
+      alert("Vui lòng nhập đầy đủ câu hỏi và các đáp án");
       return;
     }
 
@@ -176,7 +190,7 @@ function PracticeExamDetailPage({ examId, setPage }) {
       options,
       correctAnswer,
       difficulty,
-      categoryId: examData.categories[0]._id || examData.categories[0], // Lấy category đầu tiên
+      categoryId: examData.categories[0]._id || examData.categories[0],
     };
 
     try {
@@ -189,35 +203,23 @@ function PracticeExamDetailPage({ examId, setPage }) {
       if (!res.ok) throw new Error("Không thể thêm câu hỏi");
 
       await fetchQuestions();
+      alert("Thành công! Đã thêm câu hỏi");
 
-      Swal.fire("Thành công", "Đã thêm câu hỏi!", "success");
-
-      // Reset form
       setTitle("");
       setOptions(["", "", "", ""]);
       setCorrectAnswer(0);
       setDifficulty("Trung bình");
       setIsAddQuestionModalOpen(false);
     } catch (error) {
-      Swal.fire("Lỗi", "Không thể thêm câu hỏi", "error");
+      alert("Lỗi: Không thể thêm câu hỏi");
       console.error(error);
     }
   };
 
-  // Xóa câu hỏi khỏi exam (chỉ remove khỏi exam, không xóa question)
   const handleDeleteQuestion = async (questionId) => {
-    const result = await Swal.fire({
-      title: "Xác nhận xóa?",
-      text: "Bạn có chắc chắn muốn xóa câu hỏi này khỏi đề thi?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Xóa",
-      cancelButtonText: "Hủy",
-    });
+    const confirmed = window.confirm("Bạn có chắc chắn muốn xóa câu hỏi này khỏi đề thi?");
 
-    if (result.isConfirmed) {
+    if (confirmed) {
       try {
         const res = await fetch(`${BASE_URL}/practice-exams/${examId}/questions/${questionId}`, {
           method: "DELETE",
@@ -226,9 +228,9 @@ function PracticeExamDetailPage({ examId, setPage }) {
         if (!res.ok) throw new Error("Không thể xóa câu hỏi");
 
         await fetchQuestions();
-        Swal.fire("Đã xóa!", "Câu hỏi đã được xóa khỏi đề thi.", "success");
+        alert("Đã xóa! Câu hỏi đã được xóa khỏi đề thi");
       } catch (error) {
-        Swal.fire("Lỗi", "Không thể xóa câu hỏi", "error");
+        alert("Lỗi: Không thể xóa câu hỏi");
         console.error(error);
       }
     }
@@ -258,7 +260,6 @@ function PracticeExamDetailPage({ examId, setPage }) {
 
   return (
     <div className="practice-exam-detail-page">
-      {/* Header */}
       <div className="header">
         <div className="header-left">
           <button className="back-btn" onClick={() => setPage("practiceExam")}>
@@ -266,12 +267,20 @@ function PracticeExamDetailPage({ examId, setPage }) {
           </button>
           <h3 className="exam-title">{examData.title}</h3>
         </div>
-        <button className="add-question-btn" onClick={handleAddMenuClick}>
-          + Thêm câu hỏi
-        </button>
+        <div className="header-actions">
+          <button 
+            className="shuffle-btn" 
+            onClick={handleShuffleClick}
+            disabled={isShuffling || questions.length === 0}
+          >
+            {isShuffling ? "Đang xáo trộn..." : "🔀 Xáo trộn"}
+          </button>
+          <button className="add-question-btn" onClick={handleAddMenuClick}>
+            + Thêm câu hỏi
+          </button>
+        </div>
       </div>
 
-      {/* Menu chọn cách thêm */}
       {showAddMenu && (
         <div
           ref={addMenuRef}
@@ -313,7 +322,6 @@ function PracticeExamDetailPage({ examId, setPage }) {
         </div>
       )}
 
-      {/* Exam Info */}
       <div className="exam-info">
         <div className="info-item">
           <span className="info-label">Thời lượng:</span>
@@ -344,6 +352,32 @@ function PracticeExamDetailPage({ examId, setPage }) {
                   </button>
                 </div>
                 <div className="question-text">{question.title}</div>
+                
+                {question.imageUrl && (
+                  <div style={{ 
+                    marginTop: "12px", 
+                    marginBottom: "12px",
+                    display: "flex",
+                    justifyContent: "center"
+                  }}>
+                    <img 
+                      src={`http://localhost:5000${question.imageUrl}`}
+                      alt="question"
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "300px",
+                        borderRadius: "8px",
+                        border: "1px solid #ddd",
+                        objectFit: "contain",
+                        cursor: "pointer"
+                      }}
+                      onClick={() => {
+                        window.open(`http://localhost:5000${question.imageUrl}`, '_blank');
+                      }}
+                    />
+                  </div>
+                )}
+                
                 <div className="options-list">
                   {question.options.map((option, optIndex) => (
                     <div
@@ -364,7 +398,34 @@ function PracticeExamDetailPage({ examId, setPage }) {
         )}
       </div>
 
-      {/* Add Question Modal - Thêm thủ công */}
+      {/* Modal xác nhận xáo trộn */}
+      {showShuffleConfirm && (
+        <div className="modal-overlay" onClick={() => setShowShuffleConfirm(false)}>
+          <div className="shuffle-confirm-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="shuffle-icon">🔀</div>
+            <h3>Xác nhận xáo trộn</h3>
+            <p className="shuffle-warning">
+              Thao tác này sẽ xáo trộn ngẫu nhiên:
+            </p>
+            <ul className="shuffle-list">
+              <li>Thứ tự các câu hỏi trong đề thi</li>
+              <li>Thứ tự các đáp án của mỗi câu hỏi</li>
+            </ul>
+            <p className="shuffle-note">
+              ⚠️ Thao tác này không thể hoàn tác!
+            </p>
+            <div className="shuffle-actions">
+              <button className="shuffle-cancel-btn" onClick={() => setShowShuffleConfirm(false)}>
+                Hủy
+              </button>
+              <button className="shuffle-confirm-btn" onClick={handleConfirmShuffle}>
+                Xác nhận xáo trộn
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {isAddQuestionModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -496,7 +557,6 @@ function PracticeExamDetailPage({ examId, setPage }) {
 
                   return (
                     <div key={categoryId} style={{ marginBottom: "20px", border: "1px solid #e0e0e0", borderRadius: "8px", overflow: "hidden" }}>
-                      {/* Category Header */}
                       <div 
                         onClick={() => toggleCategoryExpand(categoryId)}
                         style={{
@@ -544,7 +604,6 @@ function PracticeExamDetailPage({ examId, setPage }) {
                         )}
                       </div>
 
-                      {/* Category Questions */}
                       {isExpanded && (
                         <div style={{ padding: "15px" }}>
                           {categoryQuestions.map((question, index) => (
@@ -574,7 +633,6 @@ function PracticeExamDetailPage({ examId, setPage }) {
                                     Câu {index + 1}: {question.title}
                                   </div>
                                   
-                                  {/* Hiển thị hình ảnh nếu có */}
                                   {question.imageUrl && (
                                     <div style={{ marginBottom: "12px", marginLeft: "10px" }}>
                                       <img 
