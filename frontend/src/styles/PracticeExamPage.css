@@ -1,0 +1,315 @@
+.practice-exam-page {
+  padding: 25px;
+  position: relative;
+  /* margin-left: 270px; */
+  min-height: 100vh;
+  background: #f5f7fb;
+  overflow-y: auto;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.practice-exam-page .form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.practice-exam-page input,
+.practice-exam-page select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+.practice-exam-page input:focus,
+.practice-exam-page select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.practice-exam-page button {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.1s;
+}
+
+.practice-exam-page button:hover {
+  background: #0056b3;
+}
+
+.practice-exam-page button:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 768px) {
+  .practice-exam-page {
+    margin-left: 0;
+    padding: 15px;
+  }
+}
+
+.practice-exam-page label {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.practice-exam-page h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  border-left: 4px solid #007bff;
+  padding-left: 10px;
+}
+
+/* ===== Header ===== */
+.practice-exam-page .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.practice-exam-page .title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.practice-exam-page .action-btn {
+  background: #007bff;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.practice-exam-page .action-btn:hover {
+  background: #0056b3;
+}
+
+/* ===== Danh sách exam ===== */
+.practice-exam-page ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.practice-exam-page .exam-item {
+  background: white;
+  margin-bottom: 15px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.practice-exam-page .exam-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-color: #007bff;
+}
+
+.practice-exam-page .exam-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.practice-exam-page .exam-info-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.practice-exam-page .exam-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 2px;
+}
+
+.practice-exam-page .exam-metadata {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.practice-exam-page .exam-status {
+  padding: 5px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.practice-exam-page .status-open {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #81c784;
+}
+
+.practice-exam-page .status-upcoming {
+  background-color: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffb74d;
+}
+
+.practice-exam-page .status-closed {
+  background-color: #f5f5f5;
+  color: #757575;
+  border: 1px solid #bdbdbd;
+}
+
+.practice-exam-page .status-pending {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #64b5f6;
+}
+
+.practice-exam-page .exam-time {
+  font-size: 13px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.practice-exam-page .exam-time:not(:first-of-type)::before {
+  content: "•";
+  margin: 0 8px;
+  color: #ccc;
+}
+
+.practice-exam-page .exam-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ===== Buttons trong item ===== */
+.practice-exam-page .exam-btn {
+  padding: 7px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.practice-exam-page .edit-btn {
+  background-color: #2196F3;
+  color: white;
+}
+
+.practice-exam-page .edit-btn:hover {
+  background-color: #1976D2;
+}
+
+.practice-exam-page .delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.practice-exam-page .delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* ===== Modal ===== */
+.practice-exam-page .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.practice-exam-page .modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.practice-exam-page .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.practice-exam-page .modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #666;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.practice-exam-page .modal-close-btn:hover {
+  color: #000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .practice-exam-page .exam-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .practice-exam-page .exam-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .practice-exam-page .exam-metadata {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

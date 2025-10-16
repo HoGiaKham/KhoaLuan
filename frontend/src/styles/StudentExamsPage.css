@@ -1,0 +1,163 @@
+.main-content {
+  transition: margin-left 0.3s ease;
+}
+
+.student-exams-page {
+  padding: 24px;
+  min-height: 100vh;
+  background: #f8f9fa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1; 
+}
+
+.student-exams-page h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 24px;
+  text-align: left;
+  border-left: 4px solid #007bff;
+  padding-left: 12px;
+}
+
+.exam-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.exam-item {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exam-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #007bff;
+}
+
+.exam-info {
+  flex: 1;
+}
+
+.exam-info strong {
+  font-size: 17px;
+  font-weight: 600;
+  color: #222;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.subject {
+  font-size: 14px;
+  color: #528fd1;
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.exam-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #666;
+}
+
+.exam-meta .status {
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-chưa-đặt-lịch {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #64b5f6;
+}
+
+.status-chưa-mở {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffb74d;
+}
+
+.status-đã-đóng {
+  background: #f5f5f5;
+  color: #757575;
+  border: 1px solid #bdbdbd;
+}
+
+.status-đang-mở {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #81c784;
+}
+
+.exam-item button {
+  background: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.exam-item button:hover {
+  background: #0056b3;
+}
+
+.exam-item button:active {
+  transform: scale(0.97);
+}
+
+.exam-item button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+
+  .student-exams-page {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  .exam-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .exam-item button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .student-exams-page h2 {
+    font-size: 24px;
+  }
+}

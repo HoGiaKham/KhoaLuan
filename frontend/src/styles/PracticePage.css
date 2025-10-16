@@ -1,0 +1,167 @@
+.exam-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f9fa;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.sidebar {
+  width: 220px;
+  background: #2c2f48;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 12px 12px 0;
+}
+
+.sidebar h3 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.question-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.question-number {
+  width: 36px;
+  height: 36px;
+  background: #44476a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.question-number:hover {
+  background: #6366f1;
+}
+
+.question-number.answered {
+  background: #1976d2;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px 40px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.header h2 {
+  color: #2c3e50;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.timer {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e53935;
+}
+
+.question-item {
+  background: #fff;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.question-item h3 {
+  font-size: 17px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.option label {
+  font-size: 15px;
+  color: #444;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.bottom-buttons button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.bottom-buttons button:hover {
+  transform: scale(1.03);
+}
+
+.bottom-buttons button:first-child {
+  background: #6366f1;
+  color: white;
+}
+
+.submit-btn {
+  background: #1976d2;
+  color: #fff;
+}
+
+.submit-btn:hover {
+  background: #125ca3;
+}
+
+.question-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flag-btn {
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: 0.2s;
+}
+
+.flag-btn:hover {
+  background: #f5f5f5;
+}
+
+.flag-btn.flagged {
+  color: #e53935;
+  border-color: #e53935;
+  font-weight: 600;
+}
+.question-number.flagged {
+  background: #e53935; 
+  color: white;         
+  border: 2px solid #e53935;
+}
+
